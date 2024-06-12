@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\NetWorthResource;
+use App\Http\Resources\TransactionResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\TransactionType;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -108,6 +113,61 @@ class UserController extends Controller
             DB::commit();
 
             return response(status: Response::HTTP_NO_CONTENT);
+        } catch (\Throwable $th) {
+            return response([
+                'message' => $th->getMessage()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    // TODO: extract this to a separate controller
+    public function getNetWorth(User $user)
+    {
+        $netWorth = $user->netWorth
+            ->load([
+                'transactions' => fn ($query) => $query->orderBy('created_at', 'desc')->limit(10)
+            ]);
+        $data = new NetWorthResource($netWorth);
+
+        return response([
+            'data' => $data
+        ], Response::HTTP_OK);
+    }
+
+    // TODO: extract this to a separate controller
+    public function getTransactions(User $user)
+    {
+        $transactions = $user->netWorth->transactions->sortByDesc('created_at');
+        $data = TransactionResource::collection($transactions);
+
+        return response([
+            'data' => $data
+        ], Response::HTTP_OK);
+    }
+
+    // TODO: extract this to a separate controller
+    public function storeTransaction(StoreTransactionRequest $request, User $user)
+    {
+        try {
+            $validated = $request->validated();
+
+            DB::beginTransaction();
+
+            $transaction = $user->netWorth->transactions()->create([
+                'type' => $request->input('type') === 'expense' ? TransactionType::EXPENSE : TransactionType::INCOME,
+                'name' => $validated['name'],
+                'description' => $validated['description'],
+                'amount' => $validated['amount'],
+                'created_at' => $validated['createdAt'],
+                'updated_at' => $validated['createdAt'],
+            ]);
+            $data = new TransactionResource($transaction);
+
+            DB::commit();
+
+            return response([
+                'data' => $data
+            ], Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             return response([
                 'message' => $th->getMessage()

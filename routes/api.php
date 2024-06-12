@@ -10,9 +10,15 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::prefix('/auth')->group(function () {
+    Route::prefix('auth')->group(function () {
         Route::get('/',  [AuthedUserController::class, 'index']);
     });
 
+
     Route::apiResource('users', UserController::class);
+    Route::prefix('users')->group(function () {
+        Route::get('{user}/net-worth', [UserController::class, 'getNetWorth']);
+        Route::get('{user}/transactions', [UserController::class, 'getTransactions']);
+        Route::post('{user}/transactions', [UserController::class, 'storeTransaction']);
+    });
 });
