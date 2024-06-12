@@ -3,8 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Eloquent\Factories\Sequence;
+use App\UserRole;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -18,12 +17,19 @@ class UserSeeder extends Seeder
             ->sequence([
                 'name' => 'Test Admin',
                 'email' => 'test@admin.com',
+                'role' => UserRole::ADMIN,
             ], [
                 'name' => 'Clark Tolosa',
                 'email' => 'clarktolosa@gmail.com',
+                'role' => UserRole::USER,
             ])
             ->create();
 
-        User::factory(8)->create();
+        User::factory(8)
+            ->sequence(
+                ['role' => UserRole::ADMIN],
+                ['role' => UserRole::USER],
+            )
+            ->create();
     }
 }

@@ -37,6 +37,7 @@ class UserController extends Controller
             $user = User::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
+                'role' => $validated['role'],
                 'password' => $request->input('password', 'password'),
             ]);
             $data = new UserResource($user);
@@ -78,6 +79,7 @@ class UserController extends Controller
             $user = tap($user)->update([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
+                'role' => $validated['role'],
             ]);
             $data = new UserResource($user);
 
