@@ -108,7 +108,7 @@ class UserController extends Controller
         try {
             DB::beginTransaction();
 
-            $user = $user->delete();
+            $user->delete();
 
             DB::commit();
 
