@@ -23,6 +23,7 @@ class Transaction extends Model
         'type',
         'name',
         'description',
+        'category_id',
         'amount',
         'created_at',
         'updated_at',
@@ -43,5 +44,10 @@ class Transaction extends Model
     public function netWorth(): BelongsTo
     {
         return $this->belongsTo(NetWorth::class);
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 }

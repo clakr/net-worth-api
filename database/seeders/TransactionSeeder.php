@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\User;
 use App\TransactionType;
 use Carbon\Carbon;
@@ -17,6 +18,14 @@ class TransactionSeeder extends Seeder
     {
         $user = User::firstWhere('email', 'clarktolosa@gmail.com');
 
+        $incomeCategoryId = Category::firstWhere('name', 'Income')->id;
+        $technologyCategoryId = Category::firstWhere('name', 'Technology')->id;
+        $clothingCategoryId = Category::firstWhere('name', 'Clothing')->id;
+        $giftsCategoryId = Category::firstWhere('name', 'Gifts')->id;
+        $recreationCategoryId = Category::firstWhere('name', 'Recreation')->id;
+        $miscellaneousCategoryId = Category::firstWhere('name', 'Miscellaneous')->id;
+        $medicalHealthCategoryId = Category::firstWhere('name', 'Medical Health')->id;
+
         $user->netWorth
             ->transactions()
             ->createMany([
@@ -26,6 +35,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::MARCH, 11),
                     'updated_at' => Carbon::create(2023, Carbon::MARCH, 11),
+                    'category_id' => $recreationCategoryId
                 ],
                 [
                     'name' => 'Harry Styles Concert',
@@ -33,6 +43,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::MARCH, 14),
                     'updated_at' => Carbon::create(2023, Carbon::MARCH, 14),
+                    'category_id' => $recreationCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -40,6 +51,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::APRIL, 28),
                     'updated_at' => Carbon::create(2023, Carbon::APRIL, 28),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -47,6 +59,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::MAY, 12),
                     'updated_at' => Carbon::create(2023, Carbon::MAY, 12),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -54,6 +67,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::MAY, 30),
                     'updated_at' => Carbon::create(2023, Carbon::MAY, 30),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'KPOP Overpass',
@@ -61,6 +75,15 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::JUNE, 11),
                     'updated_at' => Carbon::create(2023, Carbon::JUNE, 11),
+                    'category_id' => $recreationCategoryId
+                ],
+                [
+                    'name' => 'Monthly Dentist Visit',
+                    'amount' => 1500,
+                    'type' => TransactionType::EXPENSE,
+                    'created_at' => Carbon::create(2023, Carbon::JUNE, 12),
+                    'updated_at' => Carbon::create(2023, Carbon::JUNE, 12),
+                    'category_id' => $medicalHealthCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -68,6 +91,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::JUNE, 14),
                     'updated_at' => Carbon::create(2023, Carbon::JUNE, 14),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -75,6 +99,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::JUNE, 29),
                     'updated_at' => Carbon::create(2023, Carbon::JUNE, 29),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -82,6 +107,15 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::JULY, 13),
                     'updated_at' => Carbon::create(2023, Carbon::JULY, 13),
+                    'category_id' => $incomeCategoryId
+                ],
+                [
+                    'name' => 'Monthly Dentist Visit',
+                    'amount' => 1500,
+                    'type' => TransactionType::EXPENSE,
+                    'created_at' => Carbon::create(2023, Carbon::JULY, 15),
+                    'updated_at' => Carbon::create(2023, Carbon::JULY, 15),
+                    'category_id' => $medicalHealthCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -89,6 +123,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::JULY, 28),
                     'updated_at' => Carbon::create(2023, Carbon::JULY, 28),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Portable Fans',
@@ -97,6 +132,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::AUGUST, 8),
                     'updated_at' => Carbon::create(2023, Carbon::AUGUST, 8),
+                    'category_id' => $miscellaneousCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -104,6 +140,15 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::AUGUST, 14),
                     'updated_at' => Carbon::create(2023, Carbon::AUGUST, 14),
+                    'category_id' => $incomeCategoryId
+                ],
+                [
+                    'name' => 'Monthly Dentist Visit',
+                    'amount' => 1500,
+                    'type' => TransactionType::EXPENSE,
+                    'created_at' => Carbon::create(2023, Carbon::AUGUST, 19),
+                    'updated_at' => Carbon::create(2023, Carbon::AUGUST, 19),
+                    'category_id' => $medicalHealthCategoryId
                 ],
                 [
                     'name' => 'Rechargeable Razor',
@@ -111,6 +156,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::AUGUST, 29),
                     'updated_at' => Carbon::create(2023, Carbon::AUGUST, 29),
+                    'category_id' => $miscellaneousCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -118,6 +164,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::AUGUST, 30),
                     'updated_at' => Carbon::create(2023, Carbon::AUGUST, 30),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Jordan Stadium 90',
@@ -126,6 +173,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::SEPTEMBER, 7),
                     'updated_at' => Carbon::create(2023, Carbon::SEPTEMBER, 7),
+                    'category_id' => $clothingCategoryId
                 ],
                 [
                     'name' => 'LEGO Orchid Plant',
@@ -134,14 +182,24 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::SEPTEMBER, 7),
                     'updated_at' => Carbon::create(2023, Carbon::SEPTEMBER, 7),
+                    'category_id' => $giftsCategoryId
                 ],
                 [
                     'name' => 'NIKI Concert',
                     'description' => 'Anniversary Gift for Kim',
-                    'amount' => 5800,
+                    'amount' => 2900,
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::SEPTEMBER, 13),
                     'updated_at' => Carbon::create(2023, Carbon::SEPTEMBER, 13),
+                    'category_id' => $giftsCategoryId
+                ],
+                [
+                    'name' => 'NIKI Concert',
+                    'amount' => 2900,
+                    'type' => TransactionType::EXPENSE,
+                    'created_at' => Carbon::create(2023, Carbon::SEPTEMBER, 13),
+                    'updated_at' => Carbon::create(2023, Carbon::SEPTEMBER, 13),
+                    'category_id' => $recreationCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -149,6 +207,15 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::SEPTEMBER, 14),
                     'updated_at' => Carbon::create(2023, Carbon::SEPTEMBER, 14),
+                    'category_id' => $incomeCategoryId
+                ],
+                [
+                    'name' => 'Monthly Dentist Visit',
+                    'amount' => 1500,
+                    'type' => TransactionType::EXPENSE,
+                    'created_at' => Carbon::create(2023, Carbon::SEPTEMBER, 18),
+                    'updated_at' => Carbon::create(2023, Carbon::SEPTEMBER, 18),
+                    'category_id' => $medicalHealthCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -156,6 +223,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::SEPTEMBER, 28),
                     'updated_at' => Carbon::create(2023, Carbon::SEPTEMBER, 28),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Nike Utility Power Duffel',
@@ -164,6 +232,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::SEPTEMBER, 29),
                     'updated_at' => Carbon::create(2023, Carbon::SEPTEMBER, 29),
+                    'category_id' => $clothingCategoryId
                 ],
                 [
                     'name' => 'TWICE Concert',
@@ -171,6 +240,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::SEPTEMBER, 30),
                     'updated_at' => Carbon::create(2023, Carbon::SEPTEMBER, 30),
+                    'category_id' => $recreationCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -178,6 +248,15 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::OCTOBER, 13),
                     'updated_at' => Carbon::create(2023, Carbon::OCTOBER, 13),
+                    'category_id' => $incomeCategoryId
+                ],
+                [
+                    'name' => 'Monthly Dentist Visit',
+                    'amount' => 1500,
+                    'type' => TransactionType::EXPENSE,
+                    'created_at' => Carbon::create(2023, Carbon::OCTOBER, 16),
+                    'updated_at' => Carbon::create(2023, Carbon::OCTOBER, 16),
+                    'category_id' => $medicalHealthCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -185,6 +264,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::OCTOBER, 27),
                     'updated_at' => Carbon::create(2023, Carbon::OCTOBER, 27),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Logitech K380',
@@ -193,6 +273,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::NOVEMBER, 13),
                     'updated_at' => Carbon::create(2023, Carbon::NOVEMBER, 13),
+                    'category_id' => $technologyCategoryId
                 ],
                 [
                     'name' => 'USB Hub and HDMI Cable',
@@ -201,6 +282,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::NOVEMBER, 13),
                     'updated_at' => Carbon::create(2023, Carbon::NOVEMBER, 13),
+                    'category_id' => $technologyCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -208,6 +290,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::NOVEMBER, 14),
                     'updated_at' => Carbon::create(2023, Carbon::NOVEMBER, 14),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'KOORUI 34E6UC Monitor',
@@ -215,6 +298,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::NOVEMBER, 19),
                     'updated_at' => Carbon::create(2023, Carbon::NOVEMBER, 19),
+                    'category_id' => $technologyCategoryId
                 ],
                 [
                     'name' => 'Baseball Cap',
@@ -223,6 +307,15 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::NOVEMBER, 23),
                     'updated_at' => Carbon::create(2023, Carbon::NOVEMBER, 23),
+                    'category_id' => $giftsCategoryId
+                ],
+                [
+                    'name' => 'Monthly Dentist Visit',
+                    'amount' => 1500,
+                    'type' => TransactionType::EXPENSE,
+                    'created_at' => Carbon::create(2023, Carbon::NOVEMBER, 25),
+                    'updated_at' => Carbon::create(2023, Carbon::NOVEMBER, 25),
+                    'category_id' => $medicalHealthCategoryId
                 ],
                 [
                     'name' => '13th Month',
@@ -230,6 +323,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::NOVEMBER, 29),
                     'updated_at' => Carbon::create(2023, Carbon::NOVEMBER, 29),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -237,6 +331,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::NOVEMBER, 29),
                     'updated_at' => Carbon::create(2023, Carbon::NOVEMBER, 29),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Tecware Forge M2 MATX Case',
@@ -244,6 +339,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::DECEMBER, 5),
                     'updated_at' => Carbon::create(2023, Carbon::DECEMBER, 5),
+                    'category_id' => $technologyCategoryId
                 ],
                 [
                     'name' => 'KOORUI Monitor Stand',
@@ -251,6 +347,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::DECEMBER, 5),
                     'updated_at' => Carbon::create(2023, Carbon::DECEMBER, 5),
+                    'category_id' => $technologyCategoryId
                 ],
                 [
                     'name' => 'Casetify iPhone XS Max Case',
@@ -258,6 +355,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::DECEMBER, 6),
                     'updated_at' => Carbon::create(2023, Carbon::DECEMBER, 6),
+                    'category_id' => $technologyCategoryId
                 ],
                 [
                     'name' => 'Personal Computer',
@@ -265,6 +363,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::DECEMBER, 6),
                     'updated_at' => Carbon::create(2023, Carbon::DECEMBER, 6),
+                    'category_id' => $technologyCategoryId
                 ],
                 [
                     'name' => 'USB to Lightning Cable',
@@ -272,6 +371,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::DECEMBER, 14),
                     'updated_at' => Carbon::create(2023, Carbon::DECEMBER, 14),
+                    'category_id' => $technologyCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -279,6 +379,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::DECEMBER, 14),
                     'updated_at' => Carbon::create(2023, Carbon::DECEMBER, 14),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Royal Kludge 81',
@@ -286,6 +387,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::DECEMBER, 15),
                     'updated_at' => Carbon::create(2023, Carbon::DECEMBER, 15),
+                    'category_id' => $technologyCategoryId
                 ],
                 [
                     'name' => 'Windows 11 License',
@@ -293,6 +395,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2023, Carbon::DECEMBER, 27),
                     'updated_at' => Carbon::create(2023, Carbon::DECEMBER, 27),
+                    'category_id' => $technologyCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -300,6 +403,15 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2023, Carbon::DECEMBER, 29),
                     'updated_at' => Carbon::create(2023, Carbon::DECEMBER, 29),
+                    'category_id' => $incomeCategoryId
+                ],
+                [
+                    'name' => 'Monthly Dentist Visit',
+                    'amount' => 1500,
+                    'type' => TransactionType::EXPENSE,
+                    'created_at' => Carbon::create(2024, Carbon::JANUARY, 6),
+                    'updated_at' => Carbon::create(2024, Carbon::JANUARY, 6),
+                    'category_id' => $medicalHealthCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -307,6 +419,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2024, Carbon::JANUARY, 15),
                     'updated_at' => Carbon::create(2024, Carbon::JANUARY, 15),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -314,6 +427,15 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2024, Carbon::JANUARY, 29),
                     'updated_at' => Carbon::create(2024, Carbon::JANUARY, 29),
+                    'category_id' => $incomeCategoryId
+                ],
+                [
+                    'name' => 'Monthly Dentist Visit',
+                    'amount' => 1500,
+                    'type' => TransactionType::EXPENSE,
+                    'created_at' => Carbon::create(2024, Carbon::FEBRUARY, 3),
+                    'updated_at' => Carbon::create(2024, Carbon::FEBRUARY, 3),
+                    'category_id' => $medicalHealthCategoryId
                 ],
                 [
                     'name' => 'Sandugo Sinai Sandals',
@@ -321,6 +443,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2024, Carbon::FEBRUARY, 12),
                     'updated_at' => Carbon::create(2024, Carbon::FEBRUARY, 12),
+                    'category_id' => $clothingCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -328,6 +451,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2024, Carbon::FEBRUARY, 13),
                     'updated_at' => Carbon::create(2024, Carbon::FEBRUARY, 13),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Bucket Hat',
@@ -335,6 +459,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2024, Carbon::FEBRUARY, 14),
                     'updated_at' => Carbon::create(2024, Carbon::FEBRUARY, 14),
+                    'category_id' => $clothingCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -342,6 +467,15 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2024, Carbon::FEBRUARY, 28),
                     'updated_at' => Carbon::create(2024, Carbon::FEBRUARY, 28),
+                    'category_id' => $incomeCategoryId
+                ],
+                [
+                    'name' => 'Monthly Dentist Visit',
+                    'amount' => 1500,
+                    'type' => TransactionType::EXPENSE,
+                    'created_at' => Carbon::create(2024, Carbon::MARCH, 6),
+                    'updated_at' => Carbon::create(2024, Carbon::MARCH, 6),
+                    'category_id' => $medicalHealthCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -349,6 +483,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2024, Carbon::MARCH, 14),
                     'updated_at' => Carbon::create(2024, Carbon::MARCH, 14),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -356,6 +491,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2024, Carbon::MARCH, 27),
                     'updated_at' => Carbon::create(2024, Carbon::MARCH, 27),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'FEU Finals Project',
@@ -364,6 +500,15 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2024, Carbon::MARCH, 30),
                     'updated_at' => Carbon::create(2024, Carbon::MARCH, 30),
+                    'category_id' => $incomeCategoryId
+                ],
+                [
+                    'name' => 'Monthly Dentist Visit',
+                    'amount' => 1500,
+                    'type' => TransactionType::EXPENSE,
+                    'created_at' => Carbon::create(2024, Carbon::APRIL, 6),
+                    'updated_at' => Carbon::create(2024, Carbon::APRIL, 6),
+                    'category_id' => $medicalHealthCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -371,6 +516,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2024, Carbon::APRIL, 12),
                     'updated_at' => Carbon::create(2024, Carbon::APRIL, 12),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Apple Watch SE & AirPods 3rd Gen',
@@ -378,6 +524,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::EXPENSE,
                     'created_at' => Carbon::create(2024, Carbon::APRIL, 28),
                     'updated_at' => Carbon::create(2024, Carbon::APRIL, 28),
+                    'category_id' => $technologyCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -385,6 +532,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2024, Carbon::APRIL, 29),
                     'updated_at' => Carbon::create(2024, Carbon::APRIL, 29),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -392,6 +540,15 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2024, Carbon::MAY, 14),
                     'updated_at' => Carbon::create(2024, Carbon::MAY, 14),
+                    'category_id' => $incomeCategoryId
+                ],
+                [
+                    'name' => 'Monthly Dentist Visit',
+                    'amount' => 1500,
+                    'type' => TransactionType::EXPENSE,
+                    'created_at' => Carbon::create(2024, Carbon::MAY, 18),
+                    'updated_at' => Carbon::create(2024, Carbon::MAY, 18),
+                    'category_id' => $medicalHealthCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -399,6 +556,7 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2024, Carbon::MAY, 29),
                     'updated_at' => Carbon::create(2024, Carbon::MAY, 29),
+                    'category_id' => $incomeCategoryId
                 ],
                 [
                     'name' => 'Payroll',
@@ -406,6 +564,15 @@ class TransactionSeeder extends Seeder
                     'type' => TransactionType::INCOME,
                     'created_at' => Carbon::create(2024, Carbon::JUNE, 13),
                     'updated_at' => Carbon::create(2024, Carbon::JUNE, 13),
+                    'category_id' => $incomeCategoryId
+                ],
+                [
+                    'name' => 'Monthly Dentist Visit',
+                    'amount' => 1500,
+                    'type' => TransactionType::EXPENSE,
+                    'created_at' => Carbon::create(2024, Carbon::JUNE, 15),
+                    'updated_at' => Carbon::create(2024, Carbon::JUNE, 15),
+                    'category_id' => $medicalHealthCategoryId
                 ],
             ]);
     }

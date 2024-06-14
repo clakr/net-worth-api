@@ -22,6 +22,9 @@ class TransactionResource extends JsonResource
             'amount' => $this->amount,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
+
+            // RELATIONSHIPS
+            'category' => new CategoryResource($this->whenLoaded('category'))
         ];
     }
 }

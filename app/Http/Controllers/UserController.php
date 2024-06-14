@@ -137,7 +137,11 @@ class UserController extends Controller
     // TODO: extract this to a separate controller
     public function getTransactions(User $user)
     {
-        $transactions = $user->netWorth->transactions->sortByDesc('created_at');
+        $transactions = $user
+            ->netWorth
+            ->transactions
+            ->sortByDesc('created_at')
+            ->load('category');
         $data = TransactionResource::collection($transactions);
 
         return response([
@@ -157,6 +161,7 @@ class UserController extends Controller
                 'type' => $request->input('type') === 'expense' ? TransactionType::EXPENSE : TransactionType::INCOME,
                 'name' => $validated['name'],
                 'description' => $validated['description'],
+                'category_id' => $validated['categoryId'],
                 'amount' => $validated['amount'],
                 'created_at' => $validated['createdAt'],
                 'updated_at' => $validated['createdAt'],

@@ -25,6 +25,7 @@ class StoreTransactionRequest extends FormRequest
             'type' => 'required|string|in:expense,income',
             'name' => 'required|string',
             'description' => 'nullable|string',
+            'categoryId' => 'required|numeric|exists:categories,id',
             'amount' => 'required|numeric|min:0.01',
             'createdAt' => 'required|string'
         ];
