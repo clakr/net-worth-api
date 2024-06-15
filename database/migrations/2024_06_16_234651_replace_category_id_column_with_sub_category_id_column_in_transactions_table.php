@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use App\Models\NetWorth;
+use App\Models\SubCategory;
 use App\TransactionType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,7 +19,7 @@ return new class extends Migration
         Schema::create('new_transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(NetWorth::class)->constrained();
-            $table->foreignIdFor(Category::class)->constrained();
+            $table->foreignIdFor(SubCategory::class)->constrained();
             $table->string('type')->default(TransactionType::EXPENSE);
             $table->string('name');
             $table->text('description')->nullable();
@@ -40,6 +41,7 @@ return new class extends Migration
         Schema::create('old_transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(NetWorth::class)->constrained();
+            $table->foreignIdFor(Category::class)->constrained();
             $table->string('type')->default(TransactionType::EXPENSE);
             $table->string('name');
             $table->text('description')->nullable();

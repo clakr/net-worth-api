@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Requests\StoreSubCategoryRequest;
+use App\Http\Requests\UpdateSubCategoryRequest;
+use App\Http\Resources\SubCategoryResource;
+use App\Models\SubCategory;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = Category::all();
-        $data = CategoryResource::collection($categories);
+        $subCategories = SubCategory::all()->load('category');
+        $data = SubCategoryResource::collection($subCategories);
 
         return response([
             'data' => $data
@@ -27,17 +28,18 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(StoreSubCategoryRequest $request)
     {
         try {
             $validated = $request->validated();
 
             DB::beginTransaction();
 
-            $category = Category::create([
+            $subCategory = SubCategory::create([
                 'name' => $validated['name'],
+                'category_id' => $validated['categoryId'],
             ]);
-            $data = new CategoryResource($category);
+            $data = new SubCategoryResource($subCategory);
 
             DB::commit();
 
@@ -54,9 +56,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(SubCategory $subcategory)
     {
-        $data = new CategoryResource($category);
+        $subCategory = $subcategory->load('category');
+        $data = new SubCategoryResource($subCategory);
 
         return response([
             'data' => $data
@@ -66,17 +69,18 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateSubCategoryRequest $request, SubCategory $subcategory)
     {
         try {
             $validated = $request->validated();
 
             DB::beginTransaction();
 
-            $category = tap($category)->update([
+            $subCategory = tap($subcategory)->update([
                 'name' => $validated['name'],
+                'category_id' => $validated['categoryId'],
             ]);
-            $data = new CategoryController($category);
+            $data = new SubCategoryResource($subCategory);
 
             DB::commit();
 
@@ -93,14 +97,12 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-
-    // TODO: deleting category errors, sqlstate[23000]
-    public function destroy(Category $category)
+    public function destroy(SubCategory $subcategory)
     {
         try {
             DB::beginTransaction();
 
-            $category->delete();
+            $subcategory->delete();
 
             DB::commit();
 

@@ -20,6 +20,7 @@ class UserObserver
     /**
      * Handle the User "updated" event.
      */
+    // TODO: update user, make networth also
     public function updated(User $user): void
     {
         //

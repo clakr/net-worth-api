@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TransactionResource extends JsonResource
+class SubCategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,15 +16,12 @@ class TransactionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'type' => $this->type,
             'name' => $this->name,
-            'description' => $this->description,
-            'amount' => $this->amount,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
 
             // RELATIONSHIPS
-            'subCategory' => new SubCategoryResource($this->whenLoaded('subCategory'))
+            'category' => new CategoryResource($this->whenLoaded('category')),
         ];
     }
 }

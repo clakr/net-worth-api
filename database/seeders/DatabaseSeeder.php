@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\SubCategory;
 use App\Models\Transaction;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             CategorySeeder::class,
+            SubCategorySeeder::class,
             TransactionSeeder::class,
         ]);
     }

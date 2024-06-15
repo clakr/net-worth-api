@@ -103,6 +103,8 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
+    // TODO: deleting user errors, sqlstate[23000]
     public function destroy(User $user)
     {
         try {
@@ -141,7 +143,7 @@ class UserController extends Controller
             ->netWorth
             ->transactions
             ->sortByDesc('created_at')
-            ->load('category');
+            ->load('subCategory');
         $data = TransactionResource::collection($transactions);
 
         return response([
@@ -161,7 +163,7 @@ class UserController extends Controller
                 'type' => $request->input('type') === 'expense' ? TransactionType::EXPENSE : TransactionType::INCOME,
                 'name' => $validated['name'],
                 'description' => $validated['description'],
-                'category_id' => $validated['categoryId'],
+                'sub_category_id' => $validated['subCategoryId'],
                 'amount' => $validated['amount'],
                 'created_at' => $validated['createdAt'],
                 'updated_at' => $validated['createdAt'],

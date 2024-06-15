@@ -14,13 +14,13 @@ class CategorySeeder extends Seeder
     {
         Category::factory()
             ->createMany([
+                ['name' => 'Medical Health'],
                 ['name' => 'Income'],
                 ['name' => 'Technology'],
                 ['name' => 'Clothing'],
                 ['name' => 'Gifts'],
                 ['name' => 'Recreation'],
-                ['name' => 'Miscellaneous'],
-                ['name' => 'Medical Health'],
+                ['name' => 'Personal Care'],
             ]);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\UserRole;
+use App\Models\Category;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,8 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->default(UserRole::USER);
+        Schema::create('sub_categories', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(Category::class)->constrained();
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -22,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
-        });
+        Schema::dropIfExists('sub_categories');
     }
 };
