@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\CategoryType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,5 +20,12 @@ class CategoryFactory extends Factory
         return [
             //
         ];
+    }
+
+    public function type(CategoryType $categoryType): static
+    {
+        return $this->state(fn () => [
+            'type' => $categoryType,
+        ]);
     }
 }

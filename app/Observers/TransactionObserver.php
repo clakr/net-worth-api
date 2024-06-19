@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
+use App\CategoryType;
 use App\Models\Transaction;
-use App\TransactionType;
 
 class TransactionObserver
 {
@@ -12,7 +12,7 @@ class TransactionObserver
      */
     public function created(Transaction $transaction): void
     {
-        if ($transaction->type === TransactionType::INCOME) {
+        if ($transaction->subCategory->category->type === CategoryType::INCOME) {
             $transaction->netWorth()->increment('amount', $transaction->amount);
         }
     }

@@ -9,7 +9,6 @@ use App\Http\Resources\NetWorthResource;
 use App\Http\Resources\TransactionResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use App\TransactionType;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -160,7 +159,6 @@ class UserController extends Controller
             DB::beginTransaction();
 
             $transaction = $user->netWorth->transactions()->create([
-                'type' => $request->input('type') === 'expense' ? TransactionType::EXPENSE : TransactionType::INCOME,
                 'name' => $validated['name'],
                 'description' => $validated['description'],
                 'sub_category_id' => $validated['subCategoryId'],

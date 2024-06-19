@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CategoryType;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
@@ -27,6 +28,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // TODO: remove $validated
     public function store(StoreCategoryRequest $request)
     {
         try {
@@ -35,6 +37,7 @@ class CategoryController extends Controller
             DB::beginTransaction();
 
             $category = Category::create([
+                'type' => $validated['type'] === 'expense' ? CategoryType::EXPENSE : CategoryType::INCOME,
                 'name' => $validated['name'],
             ]);
             $data = new CategoryResource($category);
@@ -74,6 +77,7 @@ class CategoryController extends Controller
             DB::beginTransaction();
 
             $category = tap($category)->update([
+                'type' => $validated['type'] === 'expense' ? CategoryType::EXPENSE : CategoryType::INCOME,
                 'name' => $validated['name'],
             ]);
             $data = new CategoryController($category);
