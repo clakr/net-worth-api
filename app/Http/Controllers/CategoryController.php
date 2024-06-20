@@ -28,17 +28,15 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    // TODO: remove $validated
+    // TODO: add match function to `CategoryType`
     public function store(StoreCategoryRequest $request)
     {
         try {
-            $validated = $request->validated();
-
             DB::beginTransaction();
 
             $category = Category::create([
-                'type' => $validated['type'] === 'expense' ? CategoryType::EXPENSE : CategoryType::INCOME,
-                'name' => $validated['name'],
+                'type' => $request->input('type') === 'expense' ? CategoryType::EXPENSE : CategoryType::INCOME,
+                'name' => $request->input('name'),
             ]);
             $data = new CategoryResource($category);
 
@@ -72,13 +70,11 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         try {
-            $validated = $request->validated();
-
             DB::beginTransaction();
 
             $category = tap($category)->update([
-                'type' => $validated['type'] === 'expense' ? CategoryType::EXPENSE : CategoryType::INCOME,
-                'name' => $validated['name'],
+                'type' => $request->input('type') === 'expense' ? CategoryType::EXPENSE : CategoryType::INCOME,
+                'name' => $request->input('name'),
             ]);
             $data = new CategoryController($category);
 

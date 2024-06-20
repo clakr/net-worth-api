@@ -28,6 +28,7 @@ class CategorySeeder extends Seeder
                 ['name' => 'Gifts'],
                 ['name' => 'Recreation'],
                 ['name' => 'Personal Care'],
+                ['name' => 'Housing'],
             ]);
     }
 }

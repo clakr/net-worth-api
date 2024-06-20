@@ -31,13 +31,11 @@ class SubCategoryController extends Controller
     public function store(StoreSubCategoryRequest $request)
     {
         try {
-            $validated = $request->validated();
-
             DB::beginTransaction();
 
             $subCategory = SubCategory::create([
-                'name' => $validated['name'],
-                'category_id' => $validated['categoryId'],
+                'name' => $request->input('name'),
+                'category_id' => $request->input('categoryId'),
             ]);
             $data = new SubCategoryResource($subCategory);
 
@@ -72,13 +70,11 @@ class SubCategoryController extends Controller
     public function update(UpdateSubCategoryRequest $request, SubCategory $subcategory)
     {
         try {
-            $validated = $request->validated();
-
             DB::beginTransaction();
 
             $subCategory = tap($subcategory)->update([
-                'name' => $validated['name'],
-                'category_id' => $validated['categoryId'],
+                'name' => $request->input('name'),
+                'category_id' => $request->input('categoryId'),
             ]);
             $data = new SubCategoryResource($subCategory);
 

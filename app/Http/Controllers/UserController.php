@@ -34,14 +34,12 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         try {
-            $validated = $request->validated();
-
             DB::beginTransaction();
 
             $user = User::create([
-                'name' => $validated['name'],
-                'email' => $validated['email'],
-                'role' => $validated['role'],
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'role' => $request->input('role'),
                 'password' => $request->input('password', 'password'),
             ]);
             $data = new UserResource($user);
@@ -76,14 +74,12 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         try {
-            $validated = $request->validated();
-
             DB::beginTransaction();
 
             $user = tap($user)->update([
-                'name' => $validated['name'],
-                'email' => $validated['email'],
-                'role' => $validated['role'],
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'role' => $request->input('role'),
             ]);
             $data = new UserResource($user);
 
@@ -121,7 +117,6 @@ class UserController extends Controller
         }
     }
 
-    // TODO: extract this to a separate controller
     public function getNetWorth(User $user)
     {
         $netWorth = $user->netWorth
@@ -133,50 +128,5 @@ class UserController extends Controller
         return response([
             'data' => $data
         ], Response::HTTP_OK);
-    }
-
-    // TODO: extract this to a separate controller
-    public function getTransactions(User $user)
-    {
-        $transactions = $user
-            ->netWorth
-            ->transactions
-            ->sortByDesc('created_at')
-            ->load('subCategory');
-        $data = TransactionResource::collection($transactions);
-
-        return response([
-            'data' => $data
-        ], Response::HTTP_OK);
-    }
-
-    // TODO: extract this to a separate controller
-    public function storeTransaction(StoreTransactionRequest $request, User $user)
-    {
-        try {
-            $validated = $request->validated();
-
-            DB::beginTransaction();
-
-            $transaction = $user->netWorth->transactions()->create([
-                'name' => $validated['name'],
-                'description' => $validated['description'],
-                'sub_category_id' => $validated['subCategoryId'],
-                'amount' => $validated['amount'],
-                'created_at' => $validated['createdAt'],
-                'updated_at' => $validated['createdAt'],
-            ]);
-            $data = new TransactionResource($transaction);
-
-            DB::commit();
-
-            return response([
-                'data' => $data
-            ], Response::HTTP_CREATED);
-        } catch (\Throwable $th) {
-            return response([
-                'message' => $th->getMessage()
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
     }
 }

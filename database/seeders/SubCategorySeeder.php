@@ -64,5 +64,11 @@ class SubCategorySeeder extends Seeder
                 ['name' => 'Grooming'],
                 ['name' => 'Convenience'],
             ]);
+
+        SubCategory::factory()
+            ->for(Category::firstWhere('name', 'Housing'))
+            ->createMany([
+                ['name' => 'Family Contribution'],
+            ]);
     }
 }
